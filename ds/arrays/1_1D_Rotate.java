@@ -15,7 +15,7 @@ class Main {
         return b;
     }
 
-    public static void rotate_arr(int[] arr, int d) {
+    public static void rotateArr(int[] arr, int d) {
         int partitionSize = gcd(arr.length, d);
         for (int i = 0; i < partitionSize; i++) {
             int j = i;
@@ -33,10 +33,30 @@ class Main {
         }
     }
 
+    public static void reverseArray(int[] arr, int startInclusive, int endExclusive) {
+        int upto = (endExclusive - startInclusive) / 2;
+        for (int i = 0; i < upto; i++) {
+            int other_ind = endExclusive - i - 1;
+            int temp = arr[startInclusive + i];
+            arr[startInclusive + i] = arr[other_ind];
+            arr[other_ind] = temp;
+        }
+    }
+
+    public static void rotateArrayByReversal(int[] arr, int d) {
+        d = d % arr.length;
+        reverseArray(arr, 0, arr.length);
+        reverseArray(arr, 0, arr.length - d);
+        reverseArray(arr, arr.length - d, arr.length);
+    }
+
     public static void main(String... args) {
         int[] testArr = IntStream.range(1, 15).toArray();
         int d = 6;
-        rotate_arr(testArr, d);
+        rotateArr(testArr, d);
+        System.out.println(Arrays.toString(testArr));
+        int[] testArr2 = testArr.clone();
+        rotateArrayByReversal(testArr2, d);
         System.out.println(Arrays.toString(testArr));
     }
 }

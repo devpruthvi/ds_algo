@@ -42,11 +42,29 @@ void rotate_arr(std::vector<int> &arr, int d)
     }
 }
 
+void reverse_arr(std::vector<int> &arr, int startInclusive, int endExclusive)
+{
+    std::reverse(std::begin(arr) + startInclusive, std::begin(arr) + endExclusive);
+}
+
+void rotate_arr_by_reversal(std::vector<int> &arr, int d)
+{
+    int length = arr.size();
+    d = d % length;
+    reverse_arr(arr, 0, length);
+    reverse_arr(arr, 0, length - d);
+    reverse_arr(arr, length - d, length);
+}
+
 int main()
 {
     std::vector<int> test_arr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-    int d = 6;
+    std::vector<int> test_arr2{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+    int d = 8;
     rotate_arr(test_arr, d);
-    std::for_each(std::begin(test_arr), std::end(test_arr), [](auto x) { std::cout << x << std::endl;});
+    std::for_each(std::begin(test_arr), std::end(test_arr), [](auto x) { std::cout << x << std::endl; });
+    std::cout << "Test for Array rotation by Reversal" << std::endl;
+    rotate_arr(test_arr2, d);
+    std::for_each(std::begin(test_arr2), std::end(test_arr2), [](auto x) { std::cout << x << std::endl; });
     return 0;
 }
