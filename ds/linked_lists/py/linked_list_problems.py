@@ -1,10 +1,12 @@
-from sll_node import Node
-from linked_list_utils import generateRandomLinkedListWithLoop
+#!/usr/bin/python
+from sll_node import Node, SinglyLinkedList
+from linked_list_utils import generateRandomLinkedListWithLoop, generateRandomLinkedList
 
 length = 10
-loopAt = 5
-ll = generateRandomLinkedListWithLoop(length,9)
+ll = generateRandomLinkedListWithLoop(length, 9)
+l = generateRandomLinkedList(length)
 head = ll.head
+
 
 def detect_if_loop_is_present(ll):
     head = ll.head
@@ -22,9 +24,10 @@ def detect_if_loop_is_present(ll):
             return True
     return False
 
+
 def length_of_loop_in_ll(ll):
     head = ll.head
-    if head = None:
+    if head == None:
         return -1
     slowptr = head
     fastptr = head
@@ -41,6 +44,7 @@ def length_of_loop_in_ll(ll):
                 length += 1
             return length
     return -1
+
 
 def get_loop_start_index(ll):
     head = ll.head
@@ -66,4 +70,39 @@ def get_loop_start_index(ll):
                 if slowptr == fastptr:
                     return (idx, slowptr)
 
-print(get_loop_start_index(ll))
+
+def get_middle_node(ll):
+    head = ll.head
+    if head == None:
+        return head
+    slowptr = head
+    fastptr = head
+    while fastptr != None:
+        if fastptr.next == None or fastptr.next.next == None:
+            break
+        slowptr = slowptr.next
+        fastptr = fastptr.next.next
+    return slowptr
+
+
+def check_palindrome(ll):
+    # Test:
+    # palind_l = SinglyLinkedList.create_from_array([1,2,3,4,5,4,3,1,1])
+    # check_palindrome(palind_l)
+    head = ll.head
+    if head == None:
+        return
+    mid = get_middle_node(ll)
+    temp = mid
+    prev = mid
+    temp = temp.next
+    i = 0
+    while temp != None:
+        prev, temp.next, temp = temp, prev, temp.next
+    temp = head
+    while prev != mid:
+        if temp.val != prev.val:
+            return False
+        temp = temp.next
+        prev = prev.next
+    return True

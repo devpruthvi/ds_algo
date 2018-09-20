@@ -12,6 +12,13 @@ class SinglyLinkedList:
     def __init__(self, head=None):
         self.head = head
     
+    @staticmethod
+    def create_from_array(l):
+        linked_list = SinglyLinkedList()
+        for i in l[::-1]:
+            linked_list.insert_at_head(i)
+        return linked_list
+    
     def create_node_if_not_valid(new_node):
         if not isinstance(new_node, Node):
             new_node = Node(new_node)
