@@ -15,6 +15,7 @@ def detect_if_loop_is_present(ll):
     slowptr = head
     fastptr = head
 
+    # floyd warshall cycle finding algo, if fast and slowptr meet at some point, loop is present
     while True:
         if fastptr.next == None or fastptr.next.next == None:
             return False
@@ -22,6 +23,7 @@ def detect_if_loop_is_present(ll):
         fastptr = fastptr.next.next
         if slowptr == fastptr:
             return True
+    # else no loop
     return False
 
 
@@ -31,6 +33,10 @@ def length_of_loop_in_ll(ll):
         return -1
     slowptr = head
     fastptr = head
+
+    # keep oneptr at intersection point & move one of them to start then keep forwarding them until they meet that'd
+    # be the length of the loop, mathematical proof with modulo arithmetic exists to prove this
+
     while fastptr != None:
         if fastptr.next is None:
             return -1
@@ -53,6 +59,9 @@ def get_loop_start_index(ll):
     fastptr = head
     slowptr = head
     loop_found = False
+
+    # same as above algorithm instead of length, calculate start index of loop in same way as explained above
+
     while fastptr != None:
         if fastptr.next == None:
             return -1
@@ -72,6 +81,9 @@ def get_loop_start_index(ll):
 
 
 def get_middle_node(ll):
+
+    # slowptr, fastptr, by the time fastptr reached end, slowptr will reach middle node
+
     head = ll.head
     if head == None:
         return head
@@ -89,6 +101,10 @@ def check_palindrome(ll):
     # Test:
     # palind_l = SinglyLinkedList.create_from_array([1,2,3,4,5,4,3,1,1])
     # check_palindrome(palind_l)
+
+    # get middle node, reverse the rest half as we move forward , keep one ptr to head , other to end
+    # forward end ptr until it meets mid
+
     head = ll.head
     if head == None:
         return
@@ -108,12 +124,12 @@ def check_palindrome(ll):
     return True
 
 def check_palindrome_recursive(ll):
-
     """
     Test:
     palind_l = SinglyLinkedList.create_from_array([1,2,3,4,5,4,3,2,1])
     print(check_palindrome_recursive(palind_l))
     """
+    # push all values onto stack & compare both stack & data at hand
 
     head = left = ll.head
     if head == None:
