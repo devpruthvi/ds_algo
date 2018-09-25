@@ -106,3 +106,34 @@ def check_palindrome(ll):
         temp = temp.next
         prev = prev.next
     return True
+
+def check_palindrome_recursive(ll):
+
+    """
+    Test:
+    palind_l = SinglyLinkedList.create_from_array([1,2,3,4,5,4,3,2,1])
+    print(check_palindrome_recursive(palind_l))
+    """
+
+    head = left = ll.head
+    if head == None:
+        return
+
+    def check_palindrome_helper(right):
+        nonlocal  left
+        if right == None:
+            return True
+        x = check_palindrome_helper(right.next)
+
+        print(x, left, right)
+
+        if not x:
+            return False
+        
+        retval = False
+        if left.val == right.val:
+            retval = True
+        left = left.next
+        return retval
+
+    return check_palindrome_helper(head)
